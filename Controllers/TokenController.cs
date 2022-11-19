@@ -24,12 +24,12 @@ namespace Bike_Backend.Controllers
         }
 
         /// <summary>
-        /// 使用者登入
+        /// 使用者登入 取得Token資訊
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpGet("~/signin")]
+        [HttpPost("~/signin")]
         public ActionResult<UserDataModel> SignIn(LoginViewModel login)
         {
             if (ValidateUser(login)) //驗證帳戶
@@ -40,10 +40,10 @@ namespace Bike_Backend.Controllers
                     string query = @"SELECT Name FROM BikeAccount WHERE Account = @Account";
                     var result = cn.Query<UserDataModel>(query, new { Account = login.Username }).ToList();
 
-                    userData.JwtToken = jwt.GenerateToken(login.Username);
-                    userData.Name = result[0].Name;
+                    userData.JwtToken = jwt.GenerateToken(login.Username); // 取得JWT Token
+                    userData.Name = result[0].Name;  // 取得帳戶的使用者名稱
 
-                    return userData;
+                    return userData; 
                 }
             }
             else
@@ -69,7 +69,10 @@ namespace Bike_Backend.Controllers
                 return result;
             }
         }
-
+        /// <summary>
+        /// 取得所有 Claims 聲明資訊
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("~/claims")]
         public IActionResult GetClaims()
         {
@@ -77,7 +80,7 @@ namespace Bike_Backend.Controllers
         }
 
         /// <summary>
-        /// 取得JWT使用者名稱
+        /// 取得使用者名稱
         /// </summary>
         /// <returns></returns>
         [HttpGet("~/username")]
@@ -87,7 +90,7 @@ namespace Bike_Backend.Controllers
         }
 
         /// <summary>
-        /// 取得JWT使用者ID
+        /// 取得 jti 聲明值
         /// </summary>
         /// <returns></returns>
         [HttpGet("~/jwtid")]

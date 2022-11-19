@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Bike_Backend.Models
 {
+    /// <summary>
+    /// 單車狀態資料
+    /// </summary>
     public class BikeStatusModel
     {
         /// <summary>

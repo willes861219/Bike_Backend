@@ -34,7 +34,7 @@ namespace Bike_Backend.Function
 
                 var result = cn.ExecuteScalar<bool>(query, new { Account = account });
 
-                return !result;
+                return result;
             }
         }
 

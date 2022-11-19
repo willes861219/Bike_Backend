@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Bike_Backend.Models
+namespace Bike_Backend.ViewModels
 {
     /// <summary>
-    /// 採購單車資料
+    /// 使用者輸入採購單車資料
     /// </summary>
-    public class PurchaseBikeModel
+    public class PurchaseBikeViewModel
     {
-        /// <summary>
-        /// 序列編號
-        /// </summary>
-        public int PurchaseBikeID { get; set; } 
         /// <summary>
         /// 單車型號
         /// </summary>
@@ -46,7 +39,7 @@ namespace Bike_Backend.Models
         /// <summary>
         /// 採購狀態 (0 True正常, 1 False作廢)
         /// </summary>
-        public bool PurchaseStatus{ get; set; }  
+        public bool PurchaseStatus{ get; set; }   
 
     }
 }

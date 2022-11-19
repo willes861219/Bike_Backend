@@ -8,14 +8,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Bike_Backend.ViewModels;
+using static Bike_Backend.Function.TSQLModel;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Bike_Backend.Controllers
 {
-    /// <summary>
-    /// 目前單車狀態
-    /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BikeStatusController : ControllerBase
@@ -76,28 +76,23 @@ namespace Bike_Backend.Controllers
                                        (@PurchaseBikeID
                                        ,@RentalStatus
                                        ,@BikeStatus)";
-
-                //Dapper-TSQL交易
-                using (var tran = cn.BeginTransaction())
+                query = GetQuery(query,false); //加入自訂TSQL交易
+                cn.Execute(query, new
                 {
-                    cn.Execute(query, new
-                    {
-                        PurchaseBikeID = model.PurchaseBikeID,
-                        RentalStatus = model.RentalStatus,
-                        BikeStatus = model.BikeStatus
-                    });
-                    tran.Commit(); //確認交易
-                }
-
+                    PurchaseBikeID = model.PurchaseBikeID,
+                    RentalStatus = model.RentalStatus,
+                    BikeStatus = model.BikeStatus
+                });
             }
         }
 
         /// <summary>
-        /// 修改單車資料
+        /// 修改單車資料，限制admin可使用
         /// </summary>
         /// <param name="id">單車編號</param>
         /// <param name="model"></param>
         // PUT api/<BikeStatusController>/5
+        [Authorize(Roles = "admin")] //限制admin帳號可使用
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] BikeStatusViewModel model)
         {
@@ -109,30 +104,37 @@ namespace Bike_Backend.Controllers
                                  ,[BikeStatus] = @BikeStatus
                                  WHERE BikeAccountID = @id ";
 
-                //Dapper-TSQL交易
-                using (var tran = cn.BeginTransaction())
+                query = GetQuery(query, false); //加入自訂TSQL交易
+                cn.Execute(query, new
                 {
-                    cn.Execute(query, new
-                    {
-                        id = id,
-                        PurchaseBikeID = model.PurchaseBikeID,
-                        RentalStatus = model.RentalStatus,
-                        BikeStatus = model.BikeStatus,
-                    });
-
-                    tran.Commit();   //確認交易
-                }
+                    id = id,
+                    PurchaseBikeID = model.PurchaseBikeID,
+                    RentalStatus = model.RentalStatus,
+                    BikeStatus = model.BikeStatus,
+                });
             }
         }
 
         /// <summary>
-        /// 暫無設定
+        /// 刪除指定編號的單車資料，限制admin帳號可使用
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">單車編號</param>
         // DELETE api/<BikeStatusController>/5
+        [Authorize(Roles = "admin")] //限制admin帳號可使用
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            using (var cn = new SqlConnection(cnClass.AzureCn))
+            {
+                string query = @"delete from [dbo].[BikeStatus]
+                                 WHERE BikeAccountID = @id";
+
+                query = GetQuery(query, false); //加入自訂TSQL交易
+                cn.Execute(query, new
+                {
+                    id = id,
+                });
+            }
         }
     }
 }

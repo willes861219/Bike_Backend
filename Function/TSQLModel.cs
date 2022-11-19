@@ -3,7 +3,7 @@
     public class TSQLModel
     {
         /// <summary>
-        /// 
+        /// 加入TSQL
         /// </summary>
         /// <param name="query">要加入交易的SQL語法</param>
         /// <param name="IsTest">如果為True，則此語法只做測試(測完Rollback)</param>
