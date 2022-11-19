@@ -11,7 +11,7 @@ namespace Bike_Backend.Models
     public class PurchaseBikeModel
     {
         /// <summary>
-        /// 採購流水號ID
+        /// 序列編號
         /// </summary>
         public int PurchaseBikeID { get; set; } 
         /// <summary>
@@ -33,19 +33,20 @@ namespace Bike_Backend.Models
         /// <summary>
         /// 採購數量
         /// </summary>
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         /// <summary>
         /// 採購價格 (單件)
         /// </summary>
-        public string Price { get; set; }
+        public Decimal Price { get; set; }
         /// <summary>
         /// 採購日期
         /// </summary>
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
+
         /// <summary>
-        /// 採購狀態 (0 正常, 1 作廢)
+        /// 採購狀態 (0 True正常, 1 False作廢)
         /// </summary>
-        public string PurchaseStatus{ get; set; } 
+        public bool PurchaseStatus{ get; set; }  
 
     }
 }

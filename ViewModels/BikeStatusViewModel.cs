@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bike_Backend.Models
+namespace Bike_Backend.ViewModels
 {
-    public class BikeStatusModel
+    /// <summary>
+    /// 使用者輸入單車資料
+    /// </summary>
+    public class BikeStatusViewModel
     {
-        /// <summary>
-        /// 序列編號
-        /// </summary>
-        public int BikeStatusID { get; set; }
         /// <summary>
         /// 對應PurchaseBike的序列編號(PurchaseBikeID)
         /// </summary>
@@ -24,7 +23,7 @@ namespace Bike_Backend.Models
         /// <summary>
         /// 車況 BikeStatus( null 表示正常, 0 表示送修中, 1 表示報廢)
         /// </summary>
-        public bool? BikeStauts { get; set; }
+        public bool? BikeStatus { get; set; }
 
     }
 }

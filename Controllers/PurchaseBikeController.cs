@@ -47,14 +47,10 @@ namespace Bike_Backend.Controllers
         [HttpPost]
         public IEnumerable<PurchaseBikeModel> Post([FromBody] ValueViewModel value)
         {
-
-            //JObject jo = JObject.Parse(value.ToString());
-             
             using (SqlConnection cn = new SqlConnection(cnClass.AzureCn))
             {
                 string query = @"select * from PurchaseBike where PurchaseBikeID = @value";
 
-                //var result = cn.Query<PurchaseBikeModel>(query,new { value = Int32.Parse(jo["value"].ToString())});
                 var result = cn.Query<PurchaseBikeModel>(query, new { value = value.value });
 
                 return result;

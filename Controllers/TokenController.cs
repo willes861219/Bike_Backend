@@ -6,6 +6,7 @@ using Bike_Backend.Models;
 using Microsoft.Data.SqlClient;
 using Bike_Backend.Function;
 using System.Collections.Generic;
+using Bike_Backend.ViewModels;
 
 namespace Bike_Backend.Controllers
 {
@@ -87,19 +88,5 @@ namespace Bike_Backend.Controllers
             var jti = User.Claims.FirstOrDefault(p => p.Type == "jti");
             return Ok(jti.Value);
         }
-    }
-    /// <summary>
-    /// 登入帳號、密碼
-    /// </summary>
-    public class LoginViewModel
-    {
-        /// <summary>
-        /// 使用者帳號
-        /// </summary>
-        public string Username { get; set; }
-        /// <summary>
-        /// 使用者密碼
-        /// </summary>
-        public string Password { get; set; }
     }
 }

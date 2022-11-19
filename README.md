@@ -1,6 +1,6 @@
 #Project Plan
 
-#### 資料庫設計
+#### Azure SQL Server 資料庫設計
 
 - BikeStatus
 
@@ -56,19 +56,35 @@ Example：
 
 ---
 
-#### 後端所需
+#### 後端
 
-- OpenAPI 控管
-- JWT 驗證
-- PurchaseBike CRUD
+- 技術框架
+  - Asp .NET Core Web API
+  - OpenAPI
+  - JWT
+  - Git
+- API
+
+  - PurchaseBike CRUD
+  - BikeStatus CRUD
+  - BikeAccount CRUD
+
+- 使用者密碼做完雜湊才匯入資料庫
 
 ---
 
-#### 前端呈現畫面
+#### 前端
 
-- 第一面
+- Login Page
+  - 輸入帳號、密碼
+  - 註冊機制 (待補)
+    - 輸入帳號、密碼 (判斷有沒有這個帳號，可以補核准機制，畢竟是後台)
+- Tab One
   - 目前現有腳踏車庫存狀態
     - 同一類型的單車 已租借件數/未租借件數
     - 租借時長、租借價格
+- Tab Two
+  - 匯入採購資訊
+    - 匯入採購單後，會依照採購數量去產生對應的單車資料，並賦於每個單車唯一編號
 
 ---
