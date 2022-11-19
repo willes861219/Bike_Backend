@@ -17,9 +17,13 @@ namespace Bike_Backend.Controllers
     [ApiController]
     public class BikeAccountController : ControllerBase
     {
-        Connection cnClass = new Connection();
-        MethodList methodList = new MethodList();
+        MethodList methodList = new MethodList(); // 取得自訂方法
+        Connection cnClass = new Connection(); // 取得資料庫連線資料
 
+        /// <summary>
+        /// 取得所有帳戶資訊
+        /// </summary>
+        /// <returns></returns>
         // GET: api/<BikeAccountController>
         [HttpGet]
         public IEnumerable<BikeAccountModel> Get()
@@ -34,6 +38,11 @@ namespace Bike_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// 查詢是否有指定帳戶存在
+        /// </summary>
+        /// <param name="Account">要查詢帳戶</param>
+        /// <returns></returns>
         // GET api/<BikeAccountController>/5
         [HttpGet("{Account}")]
         public IActionResult Get(string Account)
@@ -97,12 +106,47 @@ namespace Bike_Backend.Controllers
             }
         }
 
-        // PUT api/<BikeAccountController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// 修改帳戶的密碼
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        // PUT api/<BikeAccountController>
+        [HttpPut]
+        public IActionResult Put([FromBody] AccountChangeViewModel model)
         {
+            if (!methodList.checkOriginPassword(model.Account, model.OldPwd)) 
+            {
+                return BadRequest("密碼不符合"); //如果比對失敗直接回傳BadRequest
+            };
+
+            var hashPwd = methodList.SHA256(model.NewPwd); // 對新密碼做雜湊
+
+            using (var cn = new SqlConnection(cnClass.AzureCn))
+            {
+                string query = @"UPDATE [dbo].[BikeAccount]
+                                SET  [Password] = @HashPwd
+                                WHERE Account = @Account";
+
+                using (var tran = cn.BeginTransaction())
+                {
+                    cn.Execute(query,
+                       new
+                       {
+                           Account = model.Account,
+                           HashPwd = hashPwd  //將新密碼傳入資料庫
+                       });
+                    tran.Commit();
+                }
+
+                return Ok("已新增帳戶至資料庫");
+            }
         }
 
+        /// <summary>
+        /// 暫無設定
+        /// </summary>
+        /// <param name="id"></param>
         // DELETE api/<BikeAccountController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)

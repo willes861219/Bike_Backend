@@ -14,8 +14,8 @@ namespace Bike_Backend.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-           MethodList methodList = new MethodList();
-        Connection cnClass = new Connection();
+        MethodList methodList = new MethodList(); // 取得自訂方法
+        Connection cnClass = new Connection(); // 取得資料庫連線資料
 
         private readonly JwtHelpers jwt;
         public TokenController(JwtHelpers jwt)
@@ -32,7 +32,7 @@ namespace Bike_Backend.Controllers
         [HttpGet("~/signin")]
         public ActionResult<UserDataModel> SignIn(LoginViewModel login)
         {
-            if (ValidateUser(login))
+            if (ValidateUser(login)) //驗證帳戶
             {
                 UserDataModel userData = new UserDataModel();
                 using(var cn = new SqlConnection(cnClass.AzureCn))
@@ -48,7 +48,7 @@ namespace Bike_Backend.Controllers
             }
             else
             {
-                return BadRequest();
+                return BadRequest(); //驗證失敗回傳BadRequest
             }
         }
 
@@ -76,12 +76,20 @@ namespace Bike_Backend.Controllers
             return Ok(User.Claims.Select(p => new { p.Type, p.Value }));
         }
 
+        /// <summary>
+        /// 取得JWT使用者名稱
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("~/username")]
         public IActionResult GetUserName()
         {
             return Ok(User.Identity.Name);
         }
 
+        /// <summary>
+        /// 取得JWT使用者ID
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("~/jwtid")]
         public IActionResult GetUniqueId()
         {

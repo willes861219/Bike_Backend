@@ -20,7 +20,7 @@ namespace Bike_Backend.Controllers
     [ApiController]
     public class BikeStatusController : ControllerBase
     {
-        Connection cnClass = new Connection();
+        Connection cnClass = new Connection(); // 取得資料庫連線資料
 
         /// <summary>
         /// 取得所有單車資料
@@ -125,9 +125,12 @@ namespace Bike_Backend.Controllers
             }
         }
 
+        /// <summary>
+        /// 暫無設定
+        /// </summary>
+        /// <param name="id"></param>
         // DELETE api/<BikeStatusController>/5
         [HttpDelete("{id}")]
-
         public void Delete(int id)
         {
         }

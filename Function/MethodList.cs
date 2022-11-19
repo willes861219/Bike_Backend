@@ -37,5 +37,26 @@ namespace Bike_Backend.Function
                 return !result;
             }
         }
+
+        /// <summary>
+        /// 檢查輸入的密碼是否符合原始密碼
+        /// </summary>
+        /// <param name="account">使用者帳號</param>
+        /// <param name="pwd">使用者輸入密碼</param>
+        /// <returns></returns>
+        public bool checkOriginPassword(string account, string pwd)
+        {
+            var hashPwd = SHA256(pwd);
+            using (var cn = new SqlConnection(cnClass.AzureCn))
+            {
+                string query = @"selcet 1 from BikeAccount 
+                                 where Account = @Account 
+                                 and Password = @Password ";
+
+                var result = cn.ExecuteScalar<bool>(query, new { Account = account, Password = hashPwd });
+
+                return result;
+            }
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace Bike_Backend.Controllers
     [ApiController]
     public class PurchaseBikeController : ControllerBase
     {
-        Connection cnClass = new Connection();
+        MethodList methodList = new MethodList(); // 取得自訂方法
+        Connection cnClass = new Connection(); // 取得資料庫連線資料
 
         // GET: api/<PurchaseBikeController>
         [HttpGet]
