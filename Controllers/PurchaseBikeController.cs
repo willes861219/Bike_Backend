@@ -1,16 +1,12 @@
 ﻿using Bike_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using Bike_Backend.Function;
 using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json.Linq;
+
 using Bike_Backend.ViewModels;
-using static Bike_Backend.Function.TSQLModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,7 +58,7 @@ namespace Bike_Backend.Controllers
         /// <summary>
         /// 新增採購單
         /// </summary>
-        /// <param name="model">輸入資料模型</param>
+        /// <param name="model">d</param>
         // POST api/<PurchaseBikeController>
         [HttpPost]
         public void Post([FromBody] PurchaseBikeViewModel model)
@@ -75,7 +71,7 @@ namespace Bike_Backend.Controllers
                             VALUES (@BikeSN,@BikeName,@BikeModel,@Manufacturer
                                 ,@Quantity,@Price ,@Date,@PurchaseStatus)";
 
-                query = GetQuery(query, false); //加入自訂TSQL語法
+                query = methodList.GetQuery(query, false); //加入自訂TSQL語法
                 cn.Execute(query,
                     new
                     {
@@ -106,7 +102,7 @@ namespace Bike_Backend.Controllers
                 string query = @"Update PurchaseBike set PurchaseStatus = @PurchaseStatus
                                  where PurchaseBikeID = @PurchaseBikeID";
                 
-                query = GetQuery(query, false); //加入自訂TSQL語法
+                query = methodList.GetQuery(query, false); //加入自訂TSQL語法
                 cn.Execute(query,new {  PurchaseStatus = Status,   PurchaseBikeID = id,});
             };
         }

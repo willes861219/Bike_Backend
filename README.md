@@ -47,12 +47,21 @@ Example：
 ```
 
 - BikeModel
-  - 索引
-  - 車種
+
+  - 索引 BikeModelID
+  - 車種 Model
     - 電動車
     - 公路車
     - 登山車
     - 淑女車
+
+- BikeManufacturer
+  - 索引 BikeManufacturerID
+  - 廠商 Manufacturer
+    - 美利達
+    - 捷安特
+    - 卜赫馬
+    - 道卡斯
 
 ---
 
@@ -80,7 +89,7 @@ Example：
   - 註冊機制 (待補)
     - 輸入帳號、密碼 (判斷有沒有這個帳號，可以補核准機制，畢竟是後台)
 - Tab One
-  - 目前現有腳踏車庫存狀態
+  - 目前現有單車庫存狀態
     - 同一類型的單車 已租借件數/未租借件數
     - 租借時長、租借價格
 - Tab Two

@@ -2,13 +2,9 @@
 using Bike_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using Bike_Backend.ViewModels;
-using static Bike_Backend.Function.TSQLModel;
 using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -94,7 +90,7 @@ namespace Bike_Backend.Controllers
                                        (@Account
                                        ,@Password
                                        ,@Name)";
-                query = GetQuery(query, false); // 加入自訂TSQL語法
+                query = methodList.GetQuery(query, false); // 加入自訂TSQL語法
                 cn.Execute(query,
                     new
                     {
@@ -128,7 +124,7 @@ namespace Bike_Backend.Controllers
                 string query = @"UPDATE [dbo].[BikeAccount]
                                 SET  [Password] = @HashPwd
                                 WHERE Account = @Account";
-                query = GetQuery(query, false); // 加入自訂TSQL語法
+                query = methodList.GetQuery(query, false); // 加入自訂TSQL語法
                 cn.Execute(query, new
                 {
                     Account = model.Account,
@@ -152,7 +148,7 @@ namespace Bike_Backend.Controllers
             {
                 string query = @"delete from BikeAccount where id = @id";
 
-                query = GetQuery(query, false); // 帶入自訂TSQL語法
+                query = methodList.GetQuery(query, false); // 帶入自訂TSQL語法
                 cn.Execute(query, new { id = id });
             }
         }

@@ -106,7 +106,7 @@ namespace Bike_Backend
             // Add OpenAPI v3 document
             services.AddOpenApiDocument(config =>
             {
-                config.Title = "腳踏車庫存系統API";
+                config.Title = "單車庫存系統API";
 
                 // 這個 OpenApiSecurityScheme 物件請勿加上 Name 與 In 屬性，否則產生出來的 OpenAPI Spec 格式會有錯誤！
                 var apiScheme = new OpenApiSecurityScheme()

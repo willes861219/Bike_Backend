@@ -2,13 +2,9 @@
 using Bike_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dapper;
 using Bike_Backend.ViewModels;
-using static Bike_Backend.Function.TSQLModel;
 using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,6 +17,7 @@ namespace Bike_Backend.Controllers
     public class BikeStatusController : ControllerBase
     {
         Connection cnClass = new Connection(); // 取得資料庫連線資料
+        MethodList methodList = new MethodList();
 
         /// <summary>
         /// 取得所有單車資料
@@ -76,7 +73,7 @@ namespace Bike_Backend.Controllers
                                        (@PurchaseBikeID
                                        ,@RentalStatus
                                        ,@BikeStatus)";
-                query = GetQuery(query,false); //加入自訂TSQL交易
+                query = methodList.GetQuery(query,false); //加入自訂TSQL交易
                 cn.Execute(query, new
                 {
                     PurchaseBikeID = model.PurchaseBikeID,
@@ -104,7 +101,7 @@ namespace Bike_Backend.Controllers
                                  ,[BikeStatus] = @BikeStatus
                                  WHERE BikeAccountID = @id ";
 
-                query = GetQuery(query, false); //加入自訂TSQL交易
+                query = methodList.GetQuery(query, false); //加入自訂TSQL交易
                 cn.Execute(query, new
                 {
                     id = id,
@@ -129,7 +126,7 @@ namespace Bike_Backend.Controllers
                 string query = @"delete from [dbo].[BikeStatus]
                                  WHERE BikeAccountID = @id";
 
-                query = GetQuery(query, false); //加入自訂TSQL交易
+                query = methodList.GetQuery(query, false); //加入自訂TSQL交易
                 cn.Execute(query, new
                 {
                     id = id,

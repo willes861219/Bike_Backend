@@ -5,7 +5,6 @@ using Dapper;
 using Bike_Backend.Models;
 using Microsoft.Data.SqlClient;
 using Bike_Backend.Function;
-using System.Collections.Generic;
 using Bike_Backend.ViewModels;
 
 namespace Bike_Backend.Controllers

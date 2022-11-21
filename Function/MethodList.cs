@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Bike_Backend.Function
 {
+    /// <summary>
+    /// 自訂方法集合
+    /// </summary>
     public class MethodList
     {
         Connection cnClass = new Connection();
@@ -57,6 +60,28 @@ namespace Bike_Backend.Function
 
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 加入TSQL
+        /// </summary>
+        /// <param name="query">要加入交易的SQL語法</param>
+        /// <param name="IsTest">如果為True，則此語法只做測試(測完Rollback)</param>
+        /// <returns></returns>
+        public string GetQuery(string query, bool IsTest)
+        {
+            var EndTag = IsTest ?
+                "ROLLBACK TRANSACTION" :
+                @"IF @R <= 1 
+                    COMMIT TRANSACTION
+                  ELSE 
+                    ROLLBACK TRANSACTION";
+
+            return $@"BEGIN TRANSACTION 
+                        DECLARE @R int
+                        {query} 
+                        select @R = @@ROWCOUNT
+                        {EndTag}  ";
         }
     }
 }

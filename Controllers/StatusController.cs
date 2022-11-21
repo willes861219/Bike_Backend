@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bike_Backend.Controllers
 {
@@ -19,7 +14,7 @@ namespace Bike_Backend.Controllers
         /// <summary>
         /// 驗證Token
         /// </summary>
-        [HttpGet]
+        [HttpGet("~/status")]
         public bool status()
         {
             return true;
