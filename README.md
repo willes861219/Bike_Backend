@@ -74,10 +74,14 @@ Example：
   - Git
 - API
 
-  - PurchaseBike CRUD
-  - BikeStatus CRUD
-  - BikeAccount CRUD
+  - CRUD
+    - PurchaseBike
+    - BikeStatus
+    - BikeAccount
+    - BikeModel
+    - BikeManufacturer
 
+- TSQL
 - 使用者密碼做完雜湊才匯入資料庫
 
 ---
@@ -89,11 +93,14 @@ Example：
   - 註冊機制 (待補)
     - 輸入帳號、密碼 (判斷有沒有這個帳號，可以補核准機制，畢竟是後台)
 - Tab One
-  - 目前現有單車庫存狀態
+  - 單車庫存狀態
     - 同一類型的單車 已租借件數/未租借件數
     - 租借時長、租借價格
 - Tab Two
-  - 匯入採購資訊
+  - 採購資訊
     - 匯入採購單後，會依照採購數量去產生對應的單車資料，並賦於每個單車唯一編號
+- Tab Three
+  - OpenAPI 連結
+- 登出 Button
 
 ---
