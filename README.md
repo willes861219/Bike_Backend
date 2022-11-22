@@ -18,7 +18,6 @@ Example：
 - PurchaseBike
 
   - 採購索引 PurchaseBikeID
-  - 型號 BikeSN
   - 品名 BikeName
   - 車種 BikeModel
   - 廠商 Manufacturer

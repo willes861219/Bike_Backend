@@ -15,10 +15,6 @@ namespace Bike_Backend.Models
         /// </summary>
         public int PurchaseBikeID { get; set; } 
         /// <summary>
-        /// 單車型號
-        /// </summary>
-        public string BikeSN { get; set; }
-        /// <summary>
         /// 單車品名
         /// </summary>
         public string BikeName { get; set; }

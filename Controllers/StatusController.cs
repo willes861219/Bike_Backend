@@ -14,7 +14,7 @@ namespace Bike_Backend.Controllers
         /// <summary>
         /// 驗證Token
         /// </summary>
-        [HttpGet("~/status")]
+        [HttpGet]
         public bool status()
         {
             return true;

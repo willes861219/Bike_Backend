@@ -66,16 +66,15 @@ namespace Bike_Backend.Controllers
             using (SqlConnection cn = new SqlConnection(cnClass.AzureCn))
             {
                 string query = @"INSERT INTO [dbo].[PurchaseBike]
-                                ([BikeSN],[BikeName],[BikeModel],[Manufacturer]
+                                ([BikeName],[BikeModel],[Manufacturer]
                                 ,[Quantity] ,[Price],[Date],[PurchaseStatus])
-                            VALUES (@BikeSN,@BikeName,@BikeModel,@Manufacturer
+                            VALUES (@BikeName,@BikeModel,@Manufacturer
                                 ,@Quantity,@Price ,@Date,@PurchaseStatus)";
 
                 query = methodList.GetQuery(query, false); //加入自訂TSQL語法
                 cn.Execute(query,
                     new
                     {
-                        BikeSN = model.BikeSN,
                         BikeName = model.BikeName,
                         BikeModel = model.BikeModel,
                         Manufacturer = model.Manufacturer,
