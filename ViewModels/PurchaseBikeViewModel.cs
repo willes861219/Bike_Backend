@@ -30,7 +30,7 @@ namespace Bike_Backend.ViewModels
         /// <summary>
         /// 採購日期
         /// </summary>
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         /// <summary>
         /// 採購狀態 (0 True正常, 1 False作廢)

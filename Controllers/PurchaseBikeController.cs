@@ -29,7 +29,15 @@ namespace Bike_Backend.Controllers
         {
             using (SqlConnection cn = new SqlConnection(cnClass.AzureCn))
             {
-                string query = @"select * from PurchaseBike";
+                string query = @"SELECT PurchaseBikeID 
+                                ,BikeName 
+                                ,BikeModel 
+                                ,Manufacturer 
+                                ,Quantity 
+                                ,Price 
+                                ,convert(varchar(10),Date,111) 'Date'
+                                ,PurchaseStatus 
+                                 FROM PurchaseBike";
 
                 var result = cn.Query<PurchaseBikeModel>(query);
 
