@@ -95,22 +95,40 @@ namespace Bike_Backend.Controllers
         }
 
         /// <summary>
-        /// 修改採購單狀態是否作廢，限制admin帳號可使用
+        /// 修改採購單，限制admin帳號可使用
         /// </summary>
         /// <param name="id">採購編號</param>
-        /// <param name="Status">false正常 true作廢</param>
+        /// <param name="model">false正常 true作廢</param>
         // PUT api/<PurchaseBikeController>/5
         [Authorize(Roles = "admin")] //限制admin帳號可使用
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] bool Status)
+        public void Put(int id, [FromBody] PurchaseBikeViewModel model)
         {
             using (SqlConnection cn = new SqlConnection(cnClass.AzureCn))
             {
-                string query = @"Update PurchaseBike set PurchaseStatus = @PurchaseStatus
+                string query = @"UPDATE [dbo].[PurchaseBike]
+                                SET [BikeName] = @BikeName
+                                    ,[BikeModel] = @BikeModel
+                                    ,[Manufacturer] = @Manufacturer
+                                    ,[Quantity] = @Quantity
+                                    ,[Price] = @Price
+                                    ,[Date] = @Date
+                                    ,[PurchaseStatus] = @PurchaseStatus
                                  where PurchaseBikeID = @PurchaseBikeID";
-                
+
                 query = methodList.GetQuery(query, false); //加入自訂TSQL語法
-                cn.Execute(query,new {  PurchaseStatus = Status,   PurchaseBikeID = id,});
+                cn.Execute(query,
+                    new
+                    {
+                        BikeName = model.BikeName,
+                        BikeModel = model.BikeModel,
+                        Manufacturer = model.Manufacturer,
+                        Quantity = model.Quantity,
+                        Price = model.Price,
+                        Date = model.Date,
+                        PurchaseStatus = model.PurchaseStatus,
+                        PurchaseBikeID = id,
+                    });
             };
         }
         /// <summary>
