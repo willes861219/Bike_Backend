@@ -7,6 +7,8 @@ using Bike_Backend.Function;
 using Microsoft.AspNetCore.Authorization;
 
 using Bike_Backend.ViewModels;
+using System;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -66,10 +68,11 @@ namespace Bike_Backend.Controllers
         /// <summary>
         /// 新增採購單
         /// </summary>
-        /// <param name="model">d</param>
+        /// <param name="model"></param>
+        /// <returns>回傳採購編號</returns>
         // POST api/<PurchaseBikeController>
         [HttpPost]
-        public void Post([FromBody] PurchaseBikeViewModel model)
+        public int Post([FromBody] PurchaseBikeViewModel model)
         {
             using (SqlConnection cn = new SqlConnection(cnClass.AzureCn))
             {
@@ -77,10 +80,11 @@ namespace Bike_Backend.Controllers
                                 ([BikeName],[BikeModel],[Manufacturer]
                                 ,[Quantity] ,[Price],[Date],[PurchaseStatus])
                             VALUES (@BikeName,@BikeModel,@Manufacturer
-                                ,@Quantity,@Price ,@Date,@PurchaseStatus)";
+                                ,@Quantity,@Price ,@Date,@PurchaseStatus)
+                                SELECT @@IDENTITY";
 
                 query = methodList.GetQuery(query, false); //加入自訂TSQL語法
-                cn.Execute(query,
+                var result = cn.Query<int>(query,
                     new
                     {
                         BikeName = model.BikeName,
@@ -89,8 +93,9 @@ namespace Bike_Backend.Controllers
                         Quantity = model.Quantity,
                         Price = model.Price,
                         Date = model.Date,
-                        PurchaseStatus = model.PurchaseStatus
-                    });
+                        PurchaseStatus = model.PurchaseStatus,
+                    }).ToList();
+                return result[0];
             };
         }
 
