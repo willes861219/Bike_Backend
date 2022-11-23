@@ -100,12 +100,12 @@ namespace Bike_Backend.Controllers
         }
 
         /// <summary>
-        /// 修改採購單，限制admin帳號可使用
+        /// 修改採購單，(暫時關閉－限制admin帳號可使用功能)
         /// </summary>
         /// <param name="id">採購編號</param>
         /// <param name="model">false正常 true作廢</param>
         // PUT api/<PurchaseBikeController>/5
-        [Authorize(Roles = "admin")] //限制admin帳號可使用
+        //[Authorize(Roles = "admin")] //限制admin帳號可使用
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] PurchaseBikeViewModel model)
         {

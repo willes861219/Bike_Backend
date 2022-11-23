@@ -18,6 +18,14 @@ namespace Bike_Backend.Models
         /// 對應PurchaseBike的序列編號(PurchaseBikeID)
         /// </summary>
         public int PurchaseBikeID { get; set; }
+        /// <summary>
+        /// 單車名稱(來自採購表單)
+        /// </summary>
+        public string BikeName { get; set; }
+        /// <summary>
+        /// 廠商(來自採購表單)
+        /// </summary>
+        public string Manufacturer { get; set; }
 
         /// <summary>
         /// 租借狀態 RentalStatus ( 0 表示未出借 , 1 表示已出借)

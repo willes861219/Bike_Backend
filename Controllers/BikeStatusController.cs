@@ -29,7 +29,10 @@ namespace Bike_Backend.Controllers
         {
             using (var cn = new SqlConnection(cnClass.AzureCn)) //連線資料庫
             {
-                string query = @"select * from BikeStatus";
+                string query = @"select bike.BikeStatusID,bike.PurchaseBikeID,pur.BikeName,
+                                pur.Manufacturer,bike.RentalStatus,bike.BikeStatus 
+                                from BikeStatus bike
+                                left join PurchaseBike pur on pur.PurchaseBikeID = bike.PurchaseBikeID";
                 var result = cn.Query<BikeStatusModel>(query);
 
                 return result; // 回傳所有單車資料
@@ -84,12 +87,12 @@ namespace Bike_Backend.Controllers
         }
 
         /// <summary>
-        /// 修改單車資料，限制admin可使用
+        /// 修改單車資料，暫時關閉－限制admin帳號可使用功能
         /// </summary>
         /// <param name="id">單車編號</param>
         /// <param name="model"></param>
         // PUT api/<BikeStatusController>/5
-        [Authorize(Roles = "admin")] //限制admin帳號可使用
+        //[Authorize(Roles = "admin")] //限制admin帳號可使用
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] BikeStatusViewModel model)
         {

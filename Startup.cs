@@ -44,7 +44,8 @@ namespace Bike_Backend
                 Options.AddPolicy(CorsPolicy,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:8080")
+                        //builder.WithOrigins("/*http://localhost:8080*/"")
+                        builder.WithOrigins("*")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                         //builder.AllowAnyOrigin();
