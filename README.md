@@ -70,7 +70,9 @@ Example：
   - Asp .NET Core Web API
   - OpenAPI
   - JWT
+  - Dapper
   - Git
+  - Azure
 - API
 
   - CRUD
@@ -91,14 +93,14 @@ Example：
   - 輸入帳號、密碼
   - 註冊機制 (待補)
     - 輸入帳號、密碼 (判斷有沒有這個帳號，可以補核准機制，畢竟是後台)
-- Tab One
+- One Tab
   - 單車庫存狀態
     - 同一類型的單車 已租借件數/未租借件數
     - 租借時長、租借價格
-- Tab Two
+- Two Tab
   - 採購資訊
     - 匯入採購單後，會依照採購數量去產生對應的單車資料，並賦於每個單車唯一編號
-- Tab Three
+- Three Tab
   - OpenAPI 連結
 - 登出 Button
 
